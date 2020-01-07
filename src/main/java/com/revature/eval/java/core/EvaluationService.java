@@ -143,9 +143,14 @@ public class EvaluationService {
 			
 		int score = 0;
 		int[] points = {1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
-		
-			for (int i = 0; i < string.length(); i++)
-				score += points[i];
+		String stringUpper = string.toUpperCase();
+			
+			for (int i = 0; i < string.length(); i++) {
+				int pointIndex = (int)stringUpper.charAt(i) - 65;
+				
+					if (pointIndex >= 0 && pointIndex <= 24)
+						score += points[pointIndex];
+			}
 			
 		return score;
 	}

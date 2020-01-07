@@ -32,8 +32,10 @@ public class EvaluationService {
 	public String acronym(String phrase) {
 		String acron = "";
 		
+			//Make sure acronym letters are Capital
 			phrase.toUpperCase();
 		
+			//Loop through string to find first letter of each word.
 			for (int i = 0; i < phrase.length(); i++)
 				if (i == 0)
 					acron += phrase.charAt(i);
@@ -94,18 +96,27 @@ public class EvaluationService {
 			this.sideThree = sideThree;
 		}
 
-		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
+		public boolean isEquilateral() {			
+				//Check if all sides are equal
+				if(this.sideOne == this.sideTwo && this.sideTwo == this.sideThree)
+					return true;
+				
 			return false;
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
+				//Check if at least two sides are the same
+				if (this.sideOne == this.sideTwo || this.sideOne == this.sideThree || this.sideTwo == this.sideThree)
+					return true;
+			
 			return false;
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
+				//Check to see if all sides are different
+				if (this.sideOne != this.sideTwo && this.sideOne != this.sideThree && this.sideTwo != this.sideThree)
+					return true;
+				
 			return false;
 		}
 
@@ -127,8 +138,16 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+			if (string.length() <= 0)
+				return 0;
+			
+		int score = 0;
+		int[] points = {1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
+		
+			for (int i = 0; i < string.length(); i++)
+				score += points[i];
+			
+		return score;
 	}
 
 	/**

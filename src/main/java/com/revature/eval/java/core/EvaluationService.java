@@ -31,18 +31,19 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		String acron = "";
+		String phraseUpper;
 		
 			//Make sure acronym letters are Capital
-			phrase.toUpperCase();
+			phraseUpper = phrase.toUpperCase();
 		
 			//Loop through string to find first letter of each word.
 			for (int i = 0; i < phrase.length(); i++)
 				if (i == 0)
-					acron += phrase.charAt(i);
+					acron += phraseUpper.charAt(i);
 				else if (i + 1 > phrase.length())
 					break;
-				else if (phrase.charAt(i) == ' ')
-					acron += phrase.charAt(i + 1);
+				else if (phraseUpper.charAt(i) == ' ')
+					acron += phraseUpper.charAt(i + 1);
 		
 		return acron;
 	}
@@ -187,8 +188,24 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+			if (string == null || string.length() <= 0)
+				return null;
+
+		String stringClean = "";
+		
+			for (int i = 0; i < string.length(); i++)
+				if (!Character.isDigit(string.charAt(i))) {
+					if (string.charAt(i) == '+')
+						i++;
+					continue;
+				}
+				else if (i == 0 && Character.getNumericValue(string.charAt(i)) == 1)
+					continue;
+				else
+					stringClean += string.charAt(i);
+		
+		
+		return stringClean;
 	}
 
 	/**

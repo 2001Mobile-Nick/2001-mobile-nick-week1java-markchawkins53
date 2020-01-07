@@ -30,8 +30,19 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String acron = "";
+		
+			phrase.toUpperCase();
+		
+			for (int i = 0; i < phrase.length(); i++)
+				if (i == 0)
+					acron += phrase.charAt(i);
+				else if (i + 1 > phrase.length())
+					break;
+				else if (phrase.charAt(i) == ' ')
+					acron += phrase.charAt(i + 1);
+		
+		return acron;
 	}
 
 	/**

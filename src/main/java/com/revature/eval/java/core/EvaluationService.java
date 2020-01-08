@@ -31,22 +31,18 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
+		//Split the phrase into separate words. Assumed " " Separates words.
+		String[] splitPhrase = phrase.split(" ");
+		//Hold acronym
 		String acron = "";
-		String phraseUpper;
 		
-			//Make sure acronym letters are Capital
-			phraseUpper = phrase.toUpperCase();
+			//Loop through each of the words from the phrase and add the first letter
+			//of each to the acron holder
+			for (String s: splitPhrase)
+				acron += s.charAt(0);
 		
-			//Loop through string to find first letter of each word.
-			for (int i = 0; i < phrase.length(); i++)
-				if (i == 0)
-					acron += phraseUpper.charAt(i);
-				else if (i + 1 > phrase.length())
-					break;
-				else if (phraseUpper.charAt(i) == ' ')
-					acron += phraseUpper.charAt(i + 1);
-		
-		return acron;
+		//Return the acronym in an upper case format
+		return acron.toUpperCase();
 	}
 
 	/**
@@ -100,7 +96,8 @@ public class EvaluationService {
 
 		public boolean isEquilateral() {			
 				//Check if all sides are equal
-				if(this.sideOne == this.sideTwo && this.sideTwo == this.sideThree)
+				if (this.sideOne == this.sideTwo &&
+					this.sideTwo == this.sideThree)
 					return true;
 				
 			return false;
@@ -108,7 +105,9 @@ public class EvaluationService {
 
 		public boolean isIsosceles() {
 				//Check if at least two sides are the same
-				if (this.sideOne == this.sideTwo || this.sideOne == this.sideThree || this.sideTwo == this.sideThree)
+				if (this.sideOne == this.sideTwo ||
+					this.sideOne == this.sideThree ||
+					this.sideTwo == this.sideThree)
 					return true;
 			
 			return false;
@@ -116,7 +115,9 @@ public class EvaluationService {
 
 		public boolean isScalene() {
 				//Check to see if all sides are different
-				if (this.sideOne != this.sideTwo && this.sideOne != this.sideThree && this.sideTwo != this.sideThree)
+				if (this.sideOne != this.sideTwo &&
+					this.sideOne != this.sideThree &&
+					this.sideTwo != this.sideThree)
 					return true;
 				
 			return false;
@@ -192,21 +193,30 @@ public class EvaluationService {
 			if (string == null || string.length() <= 0)
 				return null;
 
-		String stringClean = "";
+		//Create string builder to re-add numbers to
+		StringBuilder stringClean = new StringBuilder();
 		
-			for (int i = 0; i < string.length(); i++)
+			//Loop through each index in the string to see if it is a valid number
+			for (int i = 0; i < string.length(); i++) {
+				//Check if char is not a digit to skip over
 				if (!Character.isDigit(string.charAt(i))) {
+					//If the char is a +, skip over an additional index since we do
+					//not want the country code
 					if (string.charAt(i) == '+')
 						i++;
 					continue;
 				}
-				else if (i == 0 && Character.getNumericValue(string.charAt(i)) == 1)
+				//Check if the first index has a country code of 1 to skip it
+				else if (i == 0 && Character.getNumericValue(string.charAt(i)) == 1) {
 					continue;
+				}
+				//Add the number to the new cleaned up string buffer
 				else
-					stringClean += string.charAt(i);
+					stringClean.append(string.charAt(i));
+			}
 		
-		
-		return stringClean;
+		//Return the 
+		return stringClean.toString();
 	}
 
 	/**

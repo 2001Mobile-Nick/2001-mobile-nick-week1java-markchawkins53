@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -218,7 +219,9 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
+		Map<String, Integer> wordCounts = Collections.emptyMap();
+		
+			
 		return null;
 	}
 

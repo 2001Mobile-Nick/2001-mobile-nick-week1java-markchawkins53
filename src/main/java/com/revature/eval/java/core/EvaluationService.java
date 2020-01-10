@@ -155,9 +155,11 @@ public class EvaluationService {
 			for (int i = 0; i < string.length(); i++) {
 				int pointIndex = (int)stringUpper.charAt(i) - 65;
 				
-					if (pointIndex >= 0 && pointIndex <= 24)
+					if (pointIndex >= 0 && pointIndex <= 25)
 						score += points[pointIndex];
 			}
+			
+			System.out.println(string + " : " + score);
 			
 		return score;
 	}

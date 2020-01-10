@@ -365,9 +365,7 @@ public class EvaluationService {
 				
 				holdString.append(s);
 			}
-			
-			System.out.println(holdString);
-		
+					
 		return holdString.toString();
 	}
 
@@ -377,7 +375,7 @@ public class EvaluationService {
 	 * 
 	 * For example:
 	 * 
-	 * 9 is an Armstrong number, because 9 = 9^1 = 9 10 is not an Armstrong number,
+	 * 9 is an Armstrong number, because 9 = 9^1 = 9. 10 is not an Armstrong number,
 	 * because 10 != 1^2 + 0^2 = 2 153 is an Armstrong number, because: 153 = 1^3 +
 	 * 5^3 + 3^3 = 1 + 125 + 27 = 153 154 is not an Armstrong number, because: 154
 	 * != 1^3 + 5^3 + 4^3 = 1 + 125 + 64 = 190 Write some code to determine whether
@@ -387,8 +385,16 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		int inputHolder = input, inputLength = String.valueOf(input).length();
+		int armstrongNum = 0;
+		
+		
+			while (inputHolder > 0) {
+				armstrongNum += Math.pow((inputHolder % 10), inputLength);
+				inputHolder /= 10;	
+			}
+				
+		return (input == armstrongNum);
 	}
 
 	/**

@@ -44,7 +44,7 @@ public class EvaluationService {
 			//of each to the acron holder
 			for (String s: splitPhrase)
 				acron += s.charAt(0);
-		
+					
 		//Return the acronym in an upper case format
 		return acron.toUpperCase();
 	}
@@ -194,7 +194,7 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-			if (string == null || string.length() <= 0)
+			if (string == null || string.length() <= 0 || string.matches("[\\D]"))
 				return null;
 
 		//Create string builder to re-add numbers to
@@ -754,7 +754,20 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		// TODO Write an implementation for this method declaration
+		string = string.replace("[\\W]", "");
+		Integer sum = 0;
+				
+			if (string.matches("\\D"))
+				return false;
+		
+			for (int i = string.length() - 1; i >= 0; i--) {
+				if (i % 2 == 0)
+					sum += Character.getNumericValue(string.charAt(i));
+			}
+						
+			if (sum % 10 == 0)
+				return true;
+		
 		return false;
 	}
 

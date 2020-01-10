@@ -158,9 +158,7 @@ public class EvaluationService {
 					if (pointIndex >= 0 && pointIndex <= 25)
 						score += points[pointIndex];
 			}
-			
-			System.out.println(string + " : " + score);
-			
+						
 		return score;
 	}
 
@@ -196,7 +194,7 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-			if (string == null || string.length() <= 0 || string.matches("[\\D]"))
+			if (string == null || string.length() <= 0)
 				return null;
 
 		//Create string builder to re-add numbers to
@@ -220,6 +218,9 @@ public class EvaluationService {
 				else
 					stringClean.append(string.charAt(i));
 			}
+			
+			if (stringClean.length() > 10)
+				return null;
 		
 		//Return the 
 		return stringClean.toString();

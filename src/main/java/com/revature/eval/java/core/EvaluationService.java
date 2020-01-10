@@ -1,7 +1,10 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -229,10 +232,34 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		Map<String, Integer> wordCounts = Collections.emptyMap();
 		
+		Map<String, Integer> wordCounts = new HashMap<>();
+		
+		List<String> stringSplit = Arrays.asList(string.split("[[^\\n]&&\\W]"));
+		
+			if (stringSplit.isEmpty())
+				return null;
 			
-		return null;
+			//Remove any empty arrays
+			for (int i = 0; i < stringSplit.size(); i++)
+				if (stringSplit.get(i).isEmpty()) {
+					stringSplit.remove(i);
+					i--;
+				}
+			
+			//System.out.println(stringSplit);
+			
+			for (String s: stringSplit) {
+				if(!wordCounts.containsKey(s))
+					wordCounts.put(s, 1);
+				else
+					wordCounts.replace(s, wordCounts.get(s) + 1);
+			}
+			
+			//System.out.println(wordCounts);
+			
+						
+		return wordCounts;
 	}
 
 	/**
@@ -274,8 +301,8 @@ public class EvaluationService {
 		private List<T> sortedList;
 
 		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
-			return 0;
+
+			return Collections.binarySearch(sortedList, t, null);
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -311,8 +338,37 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+
+		List<String> pigLatWords = Arrays.asList(string.split("[\\W]"));
+		StringBuilder holdString = new StringBuilder("");
+		String vowels = "aeiou";
+		
+			if (pigLatWords.isEmpty())
+				return null;
+			
+			for(String s: pigLatWords) {
+				if (vowels.contains(s.substring(0, 1)))
+					s = s.concat("ay");
+				else
+					for(int i = 0; i < s.length() - 1; i++) {
+						if (vowels.contains(s.substring(i, i + 1))) {
+							StringBuilder letterHolder = new StringBuilder(s.substring(0, i));
+							letterHolder.append("ay");
+							
+							s = s.substring(i).concat(letterHolder.toString());
+							break;
+						}
+					}
+				
+				if (holdString.length() != 0)
+					holdString.append(' ');
+				
+				holdString.append(s);
+			}
+			
+			System.out.println(holdString);
+		
+		return holdString.toString();
 	}
 
 	/**

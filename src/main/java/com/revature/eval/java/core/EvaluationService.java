@@ -457,8 +457,28 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			StringBuilder rotCiphString = new StringBuilder(string);
+			String alphabet = "abcdefghijklmnopqrstuvwxyz";
+			char newLetter = ' ';
+			
+				for(int i = 0; i < rotCiphString.length(); i++) {
+					if (Character.toString(rotCiphString.charAt(i)).matches("[\\W[\\d]]")) {
+						continue;
+					}
+					
+					int newLetterIndex = (alphabet.indexOf(Character.toLowerCase(rotCiphString.charAt(i))) + key) % 26;
+					
+					if (Character.isUpperCase(rotCiphString.charAt(i))) {
+						newLetter = Character.toUpperCase(alphabet.charAt(newLetterIndex));
+					}
+					else {
+						newLetter = alphabet.charAt(newLetterIndex);
+					}
+					
+					rotCiphString.replace(i, i + 1, Character.toString(newLetter));
+				}
+			
+			return rotCiphString.toString();
 		}
 
 	}
@@ -476,8 +496,24 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int nthPrime = 1, primeCount = 0;
+		int k;
+		
+			if (i <= 0)
+				return 0;
+		
+		    while (primeCount < i){
+		    	nthPrime++;
+		    	
+		    	for (k = 2; k <= nthPrime; k++)
+		    		if (nthPrime % k == 0)
+		    			break;
+		    	
+				if (k == nthPrime)
+					primeCount++;
+		    }
+		    
+		return nthPrime;
 	}
 
 	/**
@@ -512,9 +548,37 @@ public class EvaluationService {
 		 * @param string
 		 * @return
 		 */
+		static String normAlph = "abcdefghijklmnopqrstuvwxyz";
+		static String revAlph = "zyxwvutsrqponmlkjihgfedcba";
+		
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			StringBuilder encodedString = new StringBuilder("");
+			char newLetter = ' ';
+			int charCounter = 0;
+			
+				for(int i = 0; i < string.length(); i++) {
+					if (Character.toString(string.charAt(i)).matches("[\\W]"))
+						continue;
+					else
+						charCounter++;
+						
+					if (!Character.toString(string.charAt(i)).matches("[\\d]")) {
+						int newLetterIndex = normAlph.indexOf(Character.toLowerCase(string.charAt(i)));
+						
+							newLetter = revAlph.charAt(newLetterIndex);
+							encodedString.append(Character.toString(newLetter));
+					}
+					else 
+						encodedString.append(string.charAt(i));
+					
+					if (charCounter % 5 == 0 && charCounter > 0)
+						encodedString.append(" ");
+				}
+				
+				if (charCounter % 5 == 0)
+					encodedString.replace(encodedString.lastIndexOf(" "), encodedString.lastIndexOf(" ") + 1, "");
+			
+			return encodedString.toString();
 		}
 
 		/**
@@ -524,8 +588,21 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			StringBuilder decodedString = new StringBuilder(string.replaceAll(" ", ""));
+			
+				for (int i = 0; i < decodedString.length(); i++) {
+					if (Character.isDigit(decodedString.charAt(i)))
+						continue;
+					
+					int letterIndex = revAlph.indexOf(decodedString.charAt(i));
+					char newLetter = normAlph.charAt(letterIndex);
+					
+					decodedString.replace(i, i + 1, Character.toString(newLetter));
+				}
+				
+				System.out.println(decodedString);
+				
+			return decodedString.toString();
 		}
 	}
 

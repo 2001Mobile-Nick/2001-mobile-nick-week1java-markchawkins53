@@ -699,8 +699,22 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		List<Integer> sumOfMulti = new ArrayList<>();
+		Integer finalSum = 0;
+		
+			for (int k = 0; k < i; k++) {
+				for (int j = 0; j < set.length; j++) {
+					if (k % set[j] == 0 && !sumOfMulti.contains(k)) {
+						sumOfMulti.add(k);
+					}
+				}
+			}
+		
+			for (Integer interg: sumOfMulti) {
+				finalSum += interg;
+			}
+			
+		return finalSum;
 	}
 
 	/**

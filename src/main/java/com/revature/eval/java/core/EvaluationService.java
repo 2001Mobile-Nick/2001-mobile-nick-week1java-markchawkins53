@@ -600,8 +600,6 @@ public class EvaluationService {
 					decodedString.replace(i, i + 1, Character.toString(newLetter));
 				}
 				
-				System.out.println(decodedString);
-				
 			return decodedString.toString();
 		}
 	}
@@ -629,8 +627,22 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		StringBuilder numsToValidate = new StringBuilder (string.replaceAll("-", ""));
+		int isbnVal = 0;
+		
+			for (int i = 0; i < numsToValidate.length(); i++) {
+				if (Character.isLetter(numsToValidate.charAt(i))) {
+					if (Character.compare(numsToValidate.charAt(i), 'X') == 0) {
+						isbnVal += (10 * (10 - i));
+					}
+					else
+						return false;
+				}
+				else				
+					isbnVal += ( Character.getNumericValue(numsToValidate.charAt(i) ) * (10 - i));				
+			}
+			
+		return isbnVal % 11 == 0;
 	}
 
 	/**
@@ -647,8 +659,17 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		StringBuilder holder = new StringBuilder("abcdefghijklmnopqrstuvwxyz");
+		
+			for(int i = 0; i < string.length(); i++) {
+				int letterIndex = holder.indexOf(Character.toString(string.charAt(i)));
+				
+					if (letterIndex != -1) {
+						holder.replace(letterIndex, letterIndex + 1, "");
+					}
+			}
+			
+		return holder.length() <= 0;
 	}
 
 	/**
